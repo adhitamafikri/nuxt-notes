@@ -1,29 +1,43 @@
 <template>
   <div>
     <h1>Page index</h1>
-    <p>counter {{ counter }}</p>
     <p>Hey testt: {{ testState }}</p>
+
+    <AppLoader :is-loading="notes.loading" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from "vuex";
+import AppLoader from "../components/AppLoader";
 
 export default {
-  layout: 'default',
+  layout: "default",
   name: "PageIndex",
+  components: {
+    AppLoader,
+  },
   computed: {
     ...mapState({
-      counter: state => state.counter,
-      testState: state => state.notes.testState,
-    })
-  }
+      testState: (state) => state.notes.testState,
+      notes: (state) => state.notes.notes,
+    }),
+  },
+  methods: {
+    ...mapActions({
+      loadNotes: "notes/loadNotes",
+    }),
+  },
+  mounted() {
+    console.log("loadnote", this.loadNotes);
+    this.loadNotes();
+  },
 };
 </script>
 
 <style scoped>
-  body {
-    margin: 0;
-    padding: 0;
-  }
+body {
+  margin: 0;
+  padding: 0;
+}
 </style>
