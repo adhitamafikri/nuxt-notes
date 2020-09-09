@@ -1,12 +1,13 @@
 <template>
   <div class="c-navigation">
-    <nuxt-link to="/">Profile</nuxt-link>
+    <nuxt-link to="/">Home</nuxt-link>
+    <nuxt-link to="/profile">Profile</nuxt-link>
   </div>
 </template>
 
 <style lang="css" scoped>
   .c-navigation {
-    background: black;
+    background: beige;
     position: fixed;
     bottom: 0;
     width: 100%;
