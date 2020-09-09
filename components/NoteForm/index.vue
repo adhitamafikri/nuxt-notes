@@ -42,6 +42,10 @@ export default {
       type: Function,
       required: true,
     },
+    noteData: {
+      type: Object,
+      default: null,
+    },
   },
   name: "NoteForm",
   data() {
@@ -50,19 +54,37 @@ export default {
       noteContent: "",
     };
   },
+  watch: {
+    noteData(newVal) {
+      if (newVal) {
+        this.noteTitle = newVal.title;
+        this.noteContent = newVal.content;
+      }
+    }
+  },
   methods: {
     ...mapActions({
       addNote: "notes/addNote",
+      updateNote: "notes/updateNote",
     }),
 
     async onSaveClick() {
-      const newNote = {
-        id: Date.now(),
-        title: this.noteTitle,
-        content: this.noteContent,
-      };
+      if (this.isActive && !this.isEdit) {
+        const newNote = {
+          id: Date.now(),
+          title: this.noteTitle,
+          content: this.noteContent,
+        };
 
-      await this.addNote({ note: { ...newNote } });
+        await this.addNote({ note: { ...newNote } });
+      } else {
+        const newNote = {
+          ...this.noteData,
+          title: this.noteTitle,
+          content: this.noteContent,
+        };
+        await this.updateNote({ note: { ...newNote } });
+      }
       this.resetStates();
       this.onClose();
     },

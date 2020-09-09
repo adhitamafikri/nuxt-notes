@@ -8,6 +8,7 @@
         v-for="(note, index) in notes.data"
         class="c-notes-card"
         :key="index"
+        @click="editNote(note)"
       >
         <p class="c-notes-card__title">
           <strong>{{ note.title }}</strong>
@@ -18,8 +19,10 @@
 
     <AppLoader :is-loading="notes.loading" />
     <NoteForm
-      :is-active.sync="isNoteFormActive"
-      :on-close="() => (isNoteFormActive = false)"
+      :is-active="isNoteFormActive"
+      :on-close="onNoteFormClose"
+      :is-edit="isEditingNote"
+      :note-data="noteToEdit"
     />
   </div>
 </template>
@@ -39,6 +42,8 @@ export default {
   data() {
     return {
       isNoteFormActive: false,
+      isEditingNote: false,
+      noteToEdit: null,
     };
   },
   computed: {
@@ -51,9 +56,23 @@ export default {
     ...mapActions({
       loadNotes: "notes/loadNotes",
     }),
+
+    editNote(note) {
+      this.isNoteFormActive = true;
+      this.isEditingNote = true;
+      this.noteToEdit = note;
+    },
+
+    onNoteFormClose() {
+      this.isNoteFormActive = false;
+      if (this.isEditingNote) {
+        console.log('exit from edit mode')
+        this.isEditingNote = false;
+        this.noteToEdit = null;
+      }
+    },
   },
   mounted() {
-    console.log("loadnote", this.loadNotes);
     this.loadNotes();
   },
 };
