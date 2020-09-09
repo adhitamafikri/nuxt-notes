@@ -16,7 +16,7 @@ export default {
 
   addNote({ commit }, { note }) {
     commit("beginAddNote");
-    apiAddNotes()
+    apiAddNote()
       .then((response) => {
         console.log("from addNote", response);
         commit("addNote", { note });
@@ -27,9 +27,9 @@ export default {
       });
   },
 
-  addNote({ commit }, { note }) {
+  updateNote({ commit }, { note }) {
     commit("beginUpdateNote");
-    apiAddNotes()
+    apiUpdateNote()
       .then((response) => {
         console.log("from updateNote", response);
         commit("updateNote", { note });

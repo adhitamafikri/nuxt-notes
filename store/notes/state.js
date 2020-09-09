@@ -10,4 +10,5 @@ export default () => ({
   selectedNote: {
     data: null,
   },
+  testState: 'tessttt',
 });

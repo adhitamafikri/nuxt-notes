@@ -1,4 +1,4 @@
-import { defaultState } from "./states";
+import { defaultState } from "./state";
 
 export default {
   beginLoadNotes(state) {
