@@ -1,7 +1,15 @@
 <template>
   <div>
     <h1>Page index</h1>
-    <p>Hey testt: {{ testState }}</p>
+
+    <div class="c-notes-container" style="padding: 16px;">
+      <div v-for="(note, index) in notes.data" class="c-notes-card" :key="index">
+        <p class="c-notes-card__title">
+          <strong>{{ note.title }}</strong>
+        </p>
+        <p class="c-notes-card__content">{{ note.content }}</p>
+      </div>
+    </div>
 
     <AppLoader :is-loading="notes.loading" />
   </div>
@@ -36,8 +44,22 @@ export default {
 </script>
 
 <style scoped>
-body {
-  margin: 0;
-  padding: 0;
+.c-notes-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.c-notes-card {
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  border-radius: 8px;
+  width: 160px;
+  padding: 16px;
+  margin: 0 8px 24px 8px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+.c-notes-card:hover {
+  box-shadow: 4px 2px 8px 2px rgba(0, 0, 0, 0.15);
 }
 </style>
