@@ -29,7 +29,7 @@ export function apiLoadNotes() {
     const timeout = setTimeout(() => {
       resolve({ ...mockresponse });
       clearTimeout(timeout);
-    }, 3000);
+    }, 1000);
   });
 }
 
@@ -44,7 +44,7 @@ export function apiAddNote() {
         },
       });
       clearTimeout(timeout);
-    }, 3000);
+    }, 1000);
   });
 }
 
@@ -59,6 +59,6 @@ export function apiUpdateNote() {
         },
       });
       clearTimeout(timeout);
-    }, 3000);
+    }, 1000);
   });
 }

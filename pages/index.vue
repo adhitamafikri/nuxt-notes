@@ -4,17 +4,12 @@
     <button @click="isNoteFormActive = true">Create New</button>
 
     <div class="c-notes-container" style="padding: 16px;">
-      <div
+      <NoteItem
         v-for="(note, index) in notes.data"
-        class="c-notes-card"
+        :note="note"
         :key="index"
-        @click="editNote(note)"
-      >
-        <p class="c-notes-card__title">
-          <strong>{{ note.title }}</strong>
-        </p>
-        <p class="c-notes-card__content">{{ note.content }}</p>
-      </div>
+        :onClick="editNote"
+      />
     </div>
 
     <AppLoader :is-loading="notes.loading" />
@@ -31,6 +26,7 @@
 import { mapState, mapActions } from "vuex";
 import AppLoader from "../components/AppLoader";
 import NoteForm from "../components/NoteForm";
+import NoteItem from "../components/NoteItem";
 
 export default {
   layout: "default",
@@ -38,6 +34,7 @@ export default {
   components: {
     AppLoader,
     NoteForm,
+    NoteItem,
   },
   data() {
     return {
@@ -83,18 +80,6 @@ export default {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-}
-
-.c-notes-card {
-  border: 1px solid rgba(0, 0, 0, 0.45);
-  border-radius: 8px;
-  width: 160px;
-  padding: 16px;
-  margin: 0 8px 24px 8px;
-  cursor: pointer;
-  transition: all 0.25s ease-in-out;
-}
-.c-notes-card:hover {
-  box-shadow: 4px 2px 8px 2px rgba(0, 0, 0, 0.15);
+  position: relative;
 }
 </style>
